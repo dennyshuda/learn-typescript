@@ -1,23 +1,18 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter'
+import { calculateSummation } from "./calculate";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const firstNumberElement = (<HTMLInputElement>document.getElementById("firstNumber"));
+const secondNumberElement = (<HTMLInputElement>document.getElementById("secondNumber"));
+const resultElement = (<HTMLDivElement>document.getElementById("result"));
+const submitElement = document.getElementById("app");
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+submitElement?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (typeof firstNumberElement === "number" && typeof secondNumberElement === "number") {
+    console.log(calculateSummation(firstNumberElement, secondNumberElement));
+  } else {
+    const firstNumber = +firstNumberElement?.value;
+    const secondNumber = +secondNumberElement?.value;
+    const result = calculateSummation(firstNumber, secondNumber)
+    resultElement.innerText = `Result is: ${result}`;
+  }
+})
